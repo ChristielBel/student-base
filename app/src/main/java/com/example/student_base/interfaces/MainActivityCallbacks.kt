@@ -1,5 +1,6 @@
 package com.example.student_base.interfaces
 
+import com.example.student_base.NamesOfFragment
 import com.example.student_base.data.Student
 
 interface MainActivityCallbacks {

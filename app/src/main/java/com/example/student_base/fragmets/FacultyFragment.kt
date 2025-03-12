@@ -1,5 +1,6 @@
 package com.example.student_base.fragmets
 
+import android.content.Context
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,15 +10,20 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.student_base.MainActivity
+import com.example.student_base.NamesOfFragment
 import com.example.student_base.R
+import com.example.student_base.data.Faculty
 import com.example.student_base.databinding.FragmentFacultyBinding
 import com.example.student_base.interfaces.MainActivityCallbacks
 
-class FacultyFragment : Fragment() {
+class FacultyFragment : Fragment(), MainActivity.Edit {
 
     companion object {
         private var INSTANCE: FacultyFragment? = null
@@ -107,5 +113,58 @@ class FacultyFragment : Fragment() {
             .show()
     }
 
+    private inner class FacultyAdapter(private val items: List<Faculty>) :
+        RecyclerView.Adapter<FacultyAdapter.ItemHolder>() {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): FacultyAdapter.ItemHolder {
+            val view = layoutInflater.inflate(R.layout.element_faculty_list, parent, false)
+            return ItemHolder(view)
+        }
 
+        override fun getItemCount(): Int = items.size
+        override fun onBindViewHolder(holder: FacultyAdapter.ItemHolder, position: Int) {
+            holder.bind(viewModel.facultyList.value!!.items[position])
+        }
+
+        private var lastView: View? = null
+        private fun updateCurrentView(view: View) {
+            lastView?.findViewById<ConstraintLayout>(R.id.clFaculty)?.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.white)
+            )
+            view.findViewById<ConstraintLayout>(R.id.clFaculty).setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.yellow)
+            )
+            lastView = view
+        }
+
+        private inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private lateinit var faculty: Faculty
+
+            fun bind(faculty: Faculty) {
+                this.faculty = faculty
+                if (faculty == viewModel.faculty)
+                    updateCurrentView(itemView)
+                val tv = itemView.findViewById<TextView>(R.id.tvFaculty)
+                tv.text = faculty.name
+                tv.setOnClickListener {
+                    viewModel.setCurrentFaculty(faculty)
+                    updateCurrentView(itemView)
+                }
+                tv.setOnLongClickListener {
+                    tv.callOnClick()
+                    mainActivity?.showFragment(NamesOfFragment.GROUP)
+                    true
+                }
+            }
+        }
+    }
+
+    var mainActivity: MainActivityCallbacks? = null
+    override fun onAttach(context: Context) {
+        mainActivity = (context as MainActivityCallbacks)
+        mainActivity?.newTitle("Список факультетов")
+        super.onAttach(context)
+    }
 }
