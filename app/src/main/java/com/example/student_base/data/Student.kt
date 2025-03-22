@@ -5,7 +5,7 @@ import java.util.UUID
 
 data class Student(
     val id: UUID = UUID.randomUUID(),
-    val lastName: String = "",
+    var lastName: String = "",
     var firstName: String = "",
     var middleName: String = "",
     var birthDate: Date = Date(),
