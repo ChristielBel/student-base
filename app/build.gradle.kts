@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    id("com.google.devtools.ksp") version "2.1.10-1.0.31"
 }
 
 android {
@@ -50,6 +52,13 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation("com.google.code.gson:gson:2.10.1")
+
+    implementation("com.google.devtools.ksp:symbol-processing-api:2.0.0-RC2-1.0.20")
+    implementation("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.compose.material3:material3:1.2.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
     testImplementation(libs.junit)

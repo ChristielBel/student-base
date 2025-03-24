@@ -24,6 +24,7 @@
             app:tabIndicatorColor="@color/blue"
             app:tabIndicatorGravity="stretch"
             app:tabMode="fixed"
+            android:clipToPadding="false"
             app:tabSelectedTextColor="@color/white"
             tools:ignore="SpeakableTextPresentCheck">
         </com.google.android.material.tabs.TabLayout>
