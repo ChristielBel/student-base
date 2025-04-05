@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:clipToPadding="false"
     tools:context=".fragments.StudentInputFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         android:fitsSystemWindows="true"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        >
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -34,7 +37,7 @@
 
             <EditText
                 android:id="@+id/etFirstName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
@@ -61,7 +64,7 @@
 
             <EditText
                 android:id="@+id/etLastName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
@@ -89,7 +92,7 @@
 
             <EditText
                 android:id="@+id/etMiddleName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
@@ -117,10 +120,11 @@
 
             <EditText
                 android:id="@+id/etPhone"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:ems="10"
                 android:hint="Введите значение"
                 android:inputType="phone" />

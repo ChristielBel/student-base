@@ -1,4 +1,4 @@
-package com.example.list_temp.fragments
+package com.example.student_base.fragments
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

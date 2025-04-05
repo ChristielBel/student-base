@@ -13,13 +13,13 @@ class FacultyViewModel : ViewModel() {
     val faculty
         get()=_faculty
 
-    private val facultyListObserver = Observer<ListOfFaculty?>{
+   /* private val facultyListObserver = Observer<ListOfFaculty?>{
             list ->
         facultyList.postValue(list)
-    }
+    }*/
 
     init {
-        AppRepository.getInstance().listOfFaculty.observeForever(facultyListObserver)
+//        AppRepository.getInstance().listOfFaculty.observeForever(facultyListObserver)
         AppRepository.getInstance().faculty.observeForever{
             _faculty=it
         }

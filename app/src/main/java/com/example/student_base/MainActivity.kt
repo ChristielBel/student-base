@@ -10,7 +10,6 @@ import com.example.student_base.data.Student
 import com.example.student_base.fragments.FacultyFragment
 import com.example.student_base.fragments.GroupFragment
 import com.example.student_base.fragments.StudentInputFragment
-import com.example.student_base.fragments.StudentsFragment
 import com.example.student_base.interfaces.MainActivityCallbacks
 import com.example.student_base.repository.AppRepository
 
