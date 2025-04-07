@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingTop="88dp"
         android:fitsSystemWindows="true"
         android:clipToPadding="false"
         >
@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:ems="10"
                 android:hint="Введите значение"
                 android:inputType="text" />
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:ems="10"
                 android:hint="Введите значение"
                 android:inputType="text" />
@@ -96,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:ems="10"
                 android:hint="Введите значение"
                 android:inputType="text" />
