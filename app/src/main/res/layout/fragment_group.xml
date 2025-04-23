@@ -16,6 +16,7 @@
             android:id="@+id/tlGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,10 +26,8 @@
             app:tabIndicatorColor="@color/blue"
             app:tabIndicatorGravity="stretch"
             app:tabMode="fixed"
-            android:clipToPadding="false"
             app:tabSelectedTextColor="@color/white"
-            tools:ignore="SpeakableTextPresentCheck">
-        </com.google.android.material.tabs.TabLayout>
+            tools:ignore="SpeakableTextPresentCheck"></com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpGroup"
