@@ -44,7 +44,6 @@ class FacultyFragment : Fragment() , MainActivity.Edit{
         _binding = FragmentFacultyBinding.inflate(inflater, container, false)
         binding.rvFaculty.layoutManager = LinearLayoutManager(context)
 
-        // Устанавливаем пустой адаптер, чтобы избежать ошибки
         binding.rvFaculty.adapter = FacultyAdapter(emptyList())
 
         return binding.root
@@ -52,13 +51,10 @@ class FacultyFragment : Fragment() , MainActivity.Edit{
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(FacultyViewModel::class.java)
         viewModel.facultyList.observe(viewLifecycleOwner){
-            if (it != null) {
-                binding.rvFaculty.adapter=FacultyAdapter(it.items)
-            }
+                binding.rvFaculty.adapter=FacultyAdapter(it)
         }
     }
 
@@ -125,7 +121,7 @@ class FacultyFragment : Fragment() , MainActivity.Edit{
         }
         override fun getItemCount(): Int = items.size
         override fun onBindViewHolder(holder: FacultyAdapter.ItemHolder, position: Int) {
-            holder.bind(viewModel.facultyList.value!!.items[position])
+            holder.bind(viewModel.facultyList.value!![position])
         }
         private var lastView : View? =null
         private fun updateCurrentView(view: View){

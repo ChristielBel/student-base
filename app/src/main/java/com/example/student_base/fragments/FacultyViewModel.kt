@@ -1,5 +1,6 @@
 package com.example.student_base.fragments
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,7 @@ import com.example.student_base.data.ListOfFaculty
 import com.example.student_base.repository.AppRepository
 
 class FacultyViewModel : ViewModel() {
-    var facultyList: MutableLiveData<ListOfFaculty?> = MutableLiveData()
+    var facultyList: LiveData<List<Faculty>> = AppRepository.getInstance().listOfFaculty
     private var _faculty : Faculty? = null
     val faculty
         get()=_faculty

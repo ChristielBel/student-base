@@ -1,6 +1,6 @@
 package com.example.student_base.repository
 
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +10,7 @@ import com.example.student_base.API.APPEND_GROUP
 import com.example.student_base.API.APPEND_STUDENT
 import com.example.student_base.API.DELETE_FACULTY
 import com.example.student_base.API.DELETE_GROUP
+import com.example.student_base.API.DELETE_STUDENT
 import com.example.student_base.API.ListAPI
 import com.example.student_base.API.ListConnection
 import com.example.student_base.API.PostFaculty
@@ -172,6 +173,7 @@ class AppRepository {
 
               }
           }*/
+        fetchFaculties()
     }
 
     /* fun addGroup(group: Group) {
@@ -291,8 +293,6 @@ class AppRepository {
     }
 
     val listOfFaculty: LiveData<List<Faculty>> = listDB.getFaculty()
-        /*    .onStart {  }
-            .catch {  }*/
         .asLiveData()
 
     private fun updateFaculties(postFaculty: PostFaculty) {
@@ -371,7 +371,7 @@ class AppRepository {
     }
 
     fun deleteStudent(student: Student) {
-        updateStudents(PostStudent(DELETE_GROUP, student))
+        updateStudents(PostStudent(DELETE_STUDENT, student))
     }
 
     private var listAPI = ListConnection.getClient().create(ListAPI::class.java)
