@@ -5,7 +5,7 @@ import android.content.Context
 import com.example.student_base.repository.AppRepository
 
 
-class MyApplication: Application() {
+class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AppRepository.getInstance().loadData()
@@ -19,9 +19,9 @@ class MyApplication: Application() {
         private var instance: MyApplication? = null
 
         val context
-            get()= applicationContext()
+            get() = applicationContext()
 
-        private fun applicationContext() : Context {
+        private fun applicationContext(): Context {
             return instance!!.applicationContext
         }
     }

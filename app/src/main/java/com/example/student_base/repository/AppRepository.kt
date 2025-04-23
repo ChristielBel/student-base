@@ -1,6 +1,5 @@
 package com.example.student_base.repository
 
-import androidx.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,30 +21,21 @@ import com.example.student_base.API.UPDATE_GROUP
 import com.example.student_base.API.UPDATE_STUDENT
 import com.example.student_base.MyApplication
 import com.example.student_base.MyConsts.TAG
-import com.example.student_base.R
 import com.example.student_base.data.Faculties
 import com.example.student_base.data.Faculty
 import com.example.student_base.data.Group
 import com.example.student_base.data.Groups
-import com.example.student_base.data.ListOfFaculty
-import com.example.student_base.data.ListOfGroup
-import com.example.student_base.data.ListOfStudent
 import com.example.student_base.data.Student
 import com.example.student_base.data.Students
 import com.example.student_base.database.ListDatabase
-import java.util.UUID
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.IllegalStateException
+import java.util.UUID
 
 
 class AppRepository {
@@ -60,22 +50,11 @@ class AppRepository {
         }
     }
 
-    //    var listOfFaculty: MutableLiveData<ListOfFaculty?> = MutableLiveData()
     var faculty: MutableLiveData<Faculty> = MutableLiveData()
 
-    //    var listOfGroup: MutableLiveData<ListOfGroup?> = MutableLiveData()
     var group: MutableLiveData<Group> = MutableLiveData()
 
-    //    var listOfStudent: MutableLiveData<ListOfStudent?> = MutableLiveData()
     var student: MutableLiveData<Student> = MutableLiveData()
-
-//    fun addFaculty(faculty: Faculty) {
-//        val listTmp = (listOfFaculty.value ?: ListOfFaculty()).apply {
-//            items.add(faculty)
-//        }
-//        listOfFaculty.postValue(listTmp)
-//        setCurrentFaculty(faculty)
-//    }
 
     fun getFacultyPosition(faculty: Faculty): Int = listOfFaculty.value?.indexOfFirst {
         it.id == faculty.id
@@ -95,94 +74,12 @@ class AppRepository {
         faculty.postValue(_faculty)
     }
 
-    /* fun updateFaculty(faculty: Faculty) {
-         val position = getFacultyPosition(faculty)
-         if (position < 0) addFaculty(faculty)
-         else {
-             val listTmp = listOfFaculty.value!!
-             listTmp.items[position] = faculty
-             listOfFaculty.postValue(listTmp)
-         }
-     }
-
-     fun deleteFaculty(faculty: Faculty) {
-         val listTmp = listOfFaculty.value!!
-         if (listTmp.items.remove(faculty)) {
-             listOfFaculty.postValue(listTmp)
-         }
-         setCurrentFaculty(0)
-     }*/
-
     fun saveData() {
-        /* val context = MyApplication.context
-         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-         sharedPreferences.edit().apply {
-             val gson = Gson()
-             val lst = listOfFaculty.value?.items ?: listOf<Faculty>()
-             val jsonString = gson.toJson(lst)
-             Log.d(TAG, "Сохранение $jsonString")
-             putString(
-                 context.getString(R.string.preference_key_faculty_list),
-                 jsonString
-             )
-             putString(
-                 context.getString(R.string.preference_key_group_list),
-                 gson.toJson(listOfGroup.value?.items ?: listOf<Group>())
-             )
-             putString(
-                 context.getString(R.string.preference_key_students_list),
-                 gson.toJson(listOfStudent.value?.items ?: listOf<Student>())
-             )
-             apply()
-         }*/
     }
 
     fun loadData() {
-        /*  val context = MyApplication.context
-          val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-          sharedPreferences.apply {
-              val jsonString =
-                  getString(context.getString(R.string.preference_key_faculty_list), null)
-              if (jsonString != null) {
-                  Log.d(TAG, "Чтение $jsonString")
-                  val listType = object : TypeToken<List<Faculty>>() {}.type
-                  val tempList = Gson().fromJson<List<Faculty>>(jsonString, listType)
-                  val temp = ListOfFaculty()
-                  temp.items = tempList.toMutableList()
-                  Log.d(TAG, "Загрузка ${temp.toString()}")
-                  listOfFaculty.postValue(temp)
-
-              }
-              val jsonStringG = getString(context.getString(R.string.preference_key_group_list), null)
-              if (jsonStringG != null) {
-                  val listTypeG = object : TypeToken<List<Group>>() {}.type
-                  val tempListG = Gson().fromJson<List<Group>>(jsonStringG, listTypeG)
-                  val tempG = ListOfGroup()
-                  tempG.items = tempListG.toMutableList()
-                  listOfGroup.postValue(tempG)
-
-              }
-              val jsonStringS =
-                  getString(context.getString(R.string.preference_key_students_list), null)
-              if (jsonStringS != null) {
-                  val listTypeS = object : TypeToken<List<Student>>() {}.type
-                  val tempListS = Gson().fromJson<List<Student>>(jsonStringS, listTypeS)
-                  val tempS = ListOfStudent()
-                  tempS.items = tempListS.toMutableList()
-                  listOfStudent.postValue(tempS)
-
-              }
-          }*/
         fetchFaculties()
     }
-
-    /* fun addGroup(group: Group) {
-         val listTmp = (listOfGroup.value ?: ListOfGroup()).apply {
-             items.add(group)
-         }
-         listOfGroup.postValue(listTmp)
-         setCurrentGroup(group)
-     }*/
 
     fun getGroupPosition(group: Group): Int = listOfGroup.value?.indexOfFirst {
         it.id == group.id
@@ -202,23 +99,6 @@ class AppRepository {
         group.postValue(_group)
     }
 
-    /*fun updateGroup(group: Group) {
-        val position = getGroupPosition(group)
-        if (position < 0) addGroup(group)
-        else {
-            val listTmp = listOfGroup.value!!
-            listTmp.items[position] = group
-            listOfGroup.postValue(listTmp)
-        }
-    }
-
-    fun deleteGroup(group: Group) {
-        val listTmp = listOfGroup.value ?: ListOfGroup()
-        if (listTmp.items.remove(group))
-            listOfGroup.postValue(listTmp)
-        setCurrentGroup(0)
-    }*/
-
     val facultyGroups
         get() = listOfGroup.value?.filter {
             it.facultyID == (faculty.value?.id ?: 0)
@@ -228,14 +108,6 @@ class AppRepository {
         (listOfGroup.value?.filter { it.facultyID == facultyID }?.sortedBy { it.name }
             ?: listOf())
 
-
-    /* fun addStudent(student: Student) {
-         val listTmp = (listOfStudent.value ?: ListOfStudent()).apply {
-             items.add(student)
-         }
-         listOfStudent.postValue(listTmp)
-         setCurrentStudent(student)
-     }*/
 
     fun getStudentPosition(student: Student): Int = listOfStudent.value?.indexOfFirst {
         it.id == student.id
@@ -254,22 +126,6 @@ class AppRepository {
     fun setCurrentStudent(_student: Student) {
         student.postValue(_student)
     }
-
-    /*fun updateStudent(student: Student) {
-        val position = getStudentPosition(student)
-        if (position < 0) addStudent(student)
-        else {
-            val listTmp = listOfStudent.value!!
-            listTmp.items[position] = student
-            listOfStudent.postValue(listTmp)
-        }
-    }
-
-    fun deleteStudent(student: Student) {
-        val listTmp = listOfStudent.value ?: ListOfStudent()
-        if (listTmp.items.remove(student)) listOfStudent.postValue(listTmp)
-        setCurrentStudent(0)
-    }*/
 
     val groupStudents
         get() = listOfStudent.value?.filter {
@@ -385,6 +241,7 @@ class AppRepository {
             override fun onResponse(call: Call<Faculties>, response: Response<Faculties>) {
                 if (response.code() == 200) {
                     val faculties = response.body()
+                    Log.d(TAG, "Получен список факультетов ${response.body()} ${faculties}")
                     val items = faculties?.items ?: emptyList()
                     Log.d(TAG, "Получен список факультетов $items")
                     myCoroutineScope.launch {

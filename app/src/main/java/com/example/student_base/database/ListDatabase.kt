@@ -19,7 +19,7 @@ import com.example.student_base.data.Student
 @TypeConverters(ListTypeConverters::class)
 abstract class ListDatabase : RoomDatabase() {
 
-    abstract fun listDAO() : ListDAO
+    abstract fun listDAO(): ListDAO
 
     companion object {
         @Volatile

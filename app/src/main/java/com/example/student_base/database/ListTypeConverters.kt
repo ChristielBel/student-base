@@ -4,16 +4,16 @@ import androidx.room.TypeConverter
 import java.util.Date
 import java.util.UUID
 
-class ListTypeConverters{
+class ListTypeConverters {
 
     @TypeConverter
-    fun fromDate(date: Date?) : Long? {
+    fun fromDate(date: Date?): Long? {
         return date?.time
     }
 
     @TypeConverter
-    fun toDate(millisSinceEpoch: Long?) : Date? {
-        return  millisSinceEpoch?.let {
+    fun toDate(millisSinceEpoch: Long?): Date? {
+        return millisSinceEpoch?.let {
             Date(it)
         }
     }

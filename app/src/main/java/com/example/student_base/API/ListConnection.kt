@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 private const val CONNECT_TIMEOUT_INTERVAL_SEC = 10L
 private const val READ_TIMEOUT_INTERVAL_SEC = 10L
 private const val WRITE_TIMEOUT_INTERVAL_SEC = 10L
-private const val BASE_URL = "http://127.0.0.1:14871"
+private const val BASE_URL = "http://10.0.2.2:14871/" //http://localhost:14871
 
 object ListConnection {
     private var retrofit: Retrofit? = null

@@ -25,26 +25,23 @@ class MainActivity : AppCompatActivity(), MainActivityCallbacks {
         setContentView(R.layout.activity_main)
 
 
-        onBackPressedDispatcher.addCallback(this /* lifecycle owner */) {
+        onBackPressedDispatcher.addCallback(this) {
             if (supportFragmentManager.backStackEntryCount > 0) {
-                /*
-val myFragment = supportFragmentManager.findFragmentByTag(SETTINGS_TAG)
-if (myFragment != null && myFragment.isVisible) {
-binding.activityMainToolbar.title=""
-checkPreference()
-}
-*/
+
                 supportFragmentManager.popBackStack()
-                when (activeFragment){
-                    NamesOfFragment.FACULTY ->{
+                when (activeFragment) {
+                    NamesOfFragment.FACULTY -> {
                         finish()
                     }
-                    NamesOfFragment.GROUP ->{
-                        activeFragment=NamesOfFragment.FACULTY
+
+                    NamesOfFragment.GROUP -> {
+                        activeFragment = NamesOfFragment.FACULTY
                     }
-                    NamesOfFragment.STUDENT ->{
-                        activeFragment=NamesOfFragment.GROUP
+
+                    NamesOfFragment.STUDENT -> {
+                        activeFragment = NamesOfFragment.GROUP
                     }
+
                     else -> {}
                 }
                 updateMenu(activeFragment)
@@ -52,17 +49,17 @@ checkPreference()
                 finish()
             }
         }
-        showFragment(activeFragment,null)
+        showFragment(activeFragment, null)
     }
 
-    var activeFragment : NamesOfFragment=NamesOfFragment.FACULTY
+    var activeFragment: NamesOfFragment = NamesOfFragment.FACULTY
 
-    private  var  _miAppendFaculty: MenuItem? =null
-    private  var  _miUpdateFaculty: MenuItem? =null
-    private  var  _miDeleteFaculty: MenuItem? =null
-    private  var  _miAppendGroup: MenuItem? =null
-    private  var  _miUpdateGroup: MenuItem? =null
-    private  var  _miDeleteGroup: MenuItem? =null
+    private var _miAppendFaculty: MenuItem? = null
+    private var _miUpdateFaculty: MenuItem? = null
+    private var _miDeleteFaculty: MenuItem? = null
+    private var _miAppendGroup: MenuItem? = null
+    private var _miUpdateGroup: MenuItem? = null
+    private var _miDeleteGroup: MenuItem? = null
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -83,31 +80,37 @@ checkPreference()
                 fedit.append()
                 true
             }
+
             R.id.miUpdateFacultet -> {
                 val fedit: Edit = FacultyFragment.getInstance()
                 fedit.update()
                 true
             }
+
             R.id.miDeleteFacultet -> {
                 val fedit: Edit = FacultyFragment.getInstance()
                 fedit.delete()
                 true
             }
+
             R.id.miAppendGroup -> {
                 val fedit: Edit = GroupFragment.getInstance()
                 fedit.append()
                 true
             }
+
             R.id.miUpdateGroup -> {
                 val fedit: Edit = GroupFragment.getInstance()
                 fedit.update()
                 true
             }
+
             R.id.miDeleteGroup -> {
                 val fedit: Edit = GroupFragment.getInstance()
                 fedit.delete()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -124,34 +127,36 @@ showFaculty()
     }
 
     override fun newTitle(_title: String) {
-        title=_title
+        title = _title
     }
 
-    private fun updateMenu(fragmentType: NamesOfFragment){
-        _miAppendFaculty?.isVisible = fragmentType==NamesOfFragment.FACULTY
-        _miUpdateFaculty?.isVisible = fragmentType==NamesOfFragment.FACULTY
-        _miDeleteFaculty?.isVisible = fragmentType==NamesOfFragment.FACULTY
-        _miAppendGroup?.isVisible = fragmentType==NamesOfFragment.GROUP
-        _miUpdateGroup?.isVisible = fragmentType==NamesOfFragment.GROUP
-        _miDeleteGroup?.isVisible = fragmentType==NamesOfFragment.GROUP
+    private fun updateMenu(fragmentType: NamesOfFragment) {
+        _miAppendFaculty?.isVisible = fragmentType == NamesOfFragment.FACULTY
+        _miUpdateFaculty?.isVisible = fragmentType == NamesOfFragment.FACULTY
+        _miDeleteFaculty?.isVisible = fragmentType == NamesOfFragment.FACULTY
+        _miAppendGroup?.isVisible = fragmentType == NamesOfFragment.GROUP
+        _miUpdateGroup?.isVisible = fragmentType == NamesOfFragment.GROUP
+        _miDeleteGroup?.isVisible = fragmentType == NamesOfFragment.GROUP
     }
 
     override fun showFragment(fragmentType: NamesOfFragment, student: Student?) {
-        when (fragmentType){
-            NamesOfFragment.FACULTY ->{
+        when (fragmentType) {
+            NamesOfFragment.FACULTY -> {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fcMain, FacultyFragment.getInstance())
                     .addToBackStack(null)
                     .commit()
             }
-            NamesOfFragment.GROUP ->{
+
+            NamesOfFragment.GROUP -> {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fcMain, GroupFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
             }
+
             NamesOfFragment.STUDENT -> {
                 if (student != null)
                     supportFragmentManager
@@ -161,7 +166,7 @@ showFaculty()
                         .commit()
             }
         }
-        activeFragment=fragmentType
+        activeFragment = fragmentType
         updateMenu(fragmentType)
     }
 

@@ -20,17 +20,17 @@ private const val ARG_PARAM1 = "student_param"
 
 class StudentInputFragment : Fragment() {
     private lateinit var student: Student
-    private lateinit var  _binding : FragmentStudentInputBinding
+    private lateinit var _binding: FragmentStudentInputBinding
 
     val binding
-        get()=_binding
+        get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             val param1 = it.getString(ARG_PARAM1)
-            if (param1==null)
-                student=Student()
+            if (param1 == null)
+                student = Student()
             else {
                 val paramType = object : TypeToken<Student>() {}.type
                 student = Gson().fromJson<Student>(param1, paramType)
@@ -39,22 +39,31 @@ class StudentInputFragment : Fragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding=FragmentStudentInputBinding.inflate(inflater,container,false)
+        _binding = FragmentStudentInputBinding.inflate(inflater, container, false)
 
         val sexArray = resources.getStringArray(R.array.SEX)
-        val adapter = ArrayAdapter(requireContext(),
-            android.R.layout.simple_spinner_item, sexArray)
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item, sexArray
+        )
         binding.spSex.adapter = adapter
         binding.spSex.setSelection(student.sex)
         binding.spSex.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                student.sex=position
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                student.sex = position
             }
-            override fun onNothingSelected(parent: AdapterView<*>) { }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         binding.cwBirthDate.setOnDateChangeListener { view, year, month, dayOfMonth ->
             student.birthDate.time =
@@ -66,7 +75,7 @@ class StudentInputFragment : Fragment() {
         binding.etMiddleName.setText(student.middleName)
         binding.etPhone.setText(student.phone)
         binding.cwBirthDate.date = student.birthDate.time
-        binding.btnCancel.setOnClickListener{
+        binding.btnCancel.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.btnSave.setOnClickListener {

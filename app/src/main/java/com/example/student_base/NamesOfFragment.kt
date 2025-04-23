@@ -1,6 +1,6 @@
 package com.example.student_base
 
-object MyConsts{
+object MyConsts {
     val TAG = "com.example.student_base.log"
 }
 
